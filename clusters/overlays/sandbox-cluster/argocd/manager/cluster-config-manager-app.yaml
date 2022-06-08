@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: clusters/overlays/sanbox-cluster/argocd/apps
+    path: clusters/overlays/sandbox-cluster/argocd/apps
     repoURL: https://github.com/sampop3/gitops-demo.git
     targetRevision: HEAD
   syncPolicy:
