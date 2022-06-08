@@ -14,4 +14,3 @@ bases:
 - ../../../manifests/argocd/apps/openshift-servicemesh-operator/base
 - ../../../manifests/argocd/apps/openshift-pipelines/base
 - ../../../manifests/argocd/apps/openshift-default-project-template/base
-- ../../../manifests/argocd/apps/paas-swiss-army-knife-image/base
