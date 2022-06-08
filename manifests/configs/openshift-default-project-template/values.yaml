@@ -1,0 +1,3 @@
+# If this is set to true  allow the project admin to get access to projects in DEV
+# In SI / PRD this should be set to false so users can create projects, but only manage them through GitOps
+devEnvironment: false

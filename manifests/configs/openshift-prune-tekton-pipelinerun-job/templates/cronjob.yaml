@@ -1,0 +1,49 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    template: cronjob-prune-tekton-pipelinerun
+  name: {{ .Values.job_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  schedule: "{{ .Values.schedule }}"
+  successfulJobsHistoryLimit: {{ .Values.success_jobs_history_limit }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: {{ .Values.image }}:{{ .Values.image_tag }}
+              resources:
+                limits:
+                  memory: 200Mi
+                requests:
+                  cpu: 100m
+                  memory: 200Mi
+              env:
+                - name: NUM_TO_KEEP
+                  value: "{{ .Values.num_to_keep }}"
+              command:
+                - /bin/bash
+                - -c
+                - /tmp/prune-tekton-pipeline-runs.sh
+              volumeMounts:
+              - name: prune-tekton-pipeline-runs
+                mountPath: /tmp/prune-tekton-pipeline-runs.sh
+                readOnly: true
+                subPath: prune-tekton-pipeline-runs.sh
+          volumes:
+          - name: prune-tekton-pipeline-runs
+            configMap:
+              name: prune-tekton-pipeline-runs
+              defaultMode: 0777
+              items:
+              - key: prune-tekton-pipeline-runs.sh
+                path: prune-tekton-pipeline-runs.sh       
+          serviceAccount: {{ .Values.job_service_account }}
+          serviceAccountName: {{ .Values.job_service_account }}
+          terminationGracePeriodSeconds: 60

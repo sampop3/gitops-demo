@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openshift-default-project-template
+  annotations:
+    argocd.argoproj.io/sync-wave: "30"
+  labels:
+    repo: local
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: manifests/configs/openshift-default-project-template
+    repoURL: https://github.com/sampop3/gitops-demo.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true

@@ -1,0 +1,4 @@
+description: Day2 Task to Prune Images using the pruning-image-operator
+name: prune-images
+tags: foundation,prune,images
+version: v0.0.1

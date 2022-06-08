@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openshift-gitops
+
+bases:
+- ../../../manifests/argocd/apps/prune-builds-job/base
+- ../../../manifests/argocd/apps/prune-deployments-job/base
+- ../../../manifests/argocd/apps/prune-images-job/base
+- ../../../manifests/argocd/apps/prune-tekton-pipelineruns-job/base
+- ../../../manifests/argocd/apps/elasticsearch-operator/base
+- ../../../manifests/argocd/apps/jaeger-operator/base
+- ../../../manifests/argocd/apps/kiali-operator/base
+- ../../../manifests/argocd/apps/openshift-servicemesh-operator/base
+- ../../../manifests/argocd/apps/openshift-pipelines/base
+- ../../../manifests/argocd/apps/openshift-default-project-template/base

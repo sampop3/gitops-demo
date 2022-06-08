@@ -1,0 +1,4 @@
+description: Day2 task Scheduled job to Prune Deployments
+name: prune-deployments
+tags: foundation,cronjob,prune,deployments
+version: v0.0.1

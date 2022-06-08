@@ -1,0 +1,6 @@
+apiVersion: v2
+name: openshift-default-project-template
+description: A Helm chart to configure the default project template
+type: application
+version: 0.0.1
+appVersion: 0.0.1

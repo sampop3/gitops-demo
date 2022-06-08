@@ -1,0 +1,4 @@
+description: Day2 task to prune pipelinerun from tekton
+name: prune-tekton-pipelinerun
+tags: foundation,cronjob,prune,tekton,pipelinerun
+version: v0.0.1

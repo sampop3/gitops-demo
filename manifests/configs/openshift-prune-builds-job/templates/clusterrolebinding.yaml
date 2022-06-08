@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    template: prune-builds
+  name: {{ .Values.namespace }}-builds-pruners
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  name: build-pruner
+  kind: ClusterRole
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.job_service_account }}
+  namespace: {{ .Values.namespace }}

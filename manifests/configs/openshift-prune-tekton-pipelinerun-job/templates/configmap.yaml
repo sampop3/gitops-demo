@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: prune-tekton-pipeline-runs
+  namespace: {{ .Values.namespace }}
+data:
+  prune-tekton-pipeline-runs.sh: |-
+    #!/bin/bash
+    for pipeline in $(kubectl get pipeline -A -ojsonpath='{range .items[*]}{.metadata.namespace}{"/"}{.metadata.name}{"\n"}{end}'|grep -vE '^default|^kube|^openshift')
+    do
+        NS=$(echo $pipeline | awk -F/ '{print $1}')
+        PL_LABEL=$(echo $pipeline | awk -F/ '{print $2}')
+        PL_DELETE=$(kubectl get pipelinerun -n $NS -l tekton.dev/pipeline=$PL_LABEL --ignore-not-found -o jsonpath='{range .items[?(@.status.completionTime)]}{.status.completionTime}{" "}{.metadata.namespace}{"/"}{.metadata.name}{"\n"}{end}' | sort | head -n -${NUM_TO_KEEP} | awk '{print $2}' | awk -F/ '{print $2}')
+        for pipelinerun in $PL_DELETE
+        do
+          PR_DELETE=$(kubectl get taskrun -n $NS -l tekton.dev/pipeline=$PL_LABEL --ignore-not-found -o jsonpath='{range .items[?(@.status.completionTime)]}{.status.completionTime}{" "}{.metadata.namespace}{"/"}{.metadata.name}{"\n"}{end}' | sort | awk '{print $2}' | awk -F/ '{print $2}')
+          test -n "$PR_DELETE" && kubectl delete taskrun ${PR_DELETE} -n ${NS} || true
+        done
+        test -n "$PL_DELETE" && kubectl delete pipelinerun ${PL_DELETE} -n ${NS} || true
+    done

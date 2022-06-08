@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prune-deployments-job
+  annotations:
+    argocd.argoproj.io/sync-wave: "30"
+  labels:
+    repo: local
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: cluster-config
+  source:
+    path: manifests/configs/openshift-prune-deployments-job
+    repoURL: https://github.com/sampop3/gitops-demo.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
