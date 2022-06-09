@@ -8,15 +8,8 @@ objects:
 - apiVersion: project.openshift.io/v1
   kind: Project
   metadata:
-    labels:
-      # Allows GitOps to manage this project
-      argocd.argoproj.io/managed-by: developer-gitops
-    annotations:
-      openshift.io/description: ${PROJECT_DESCRIPTION}
-      openshift.io/display-name: ${PROJECT_DISPLAYNAME}
-      openshift.io/requester: ${PROJECT_REQUESTING_USER}
     creationTimestamp: null
-    name: ${PROJECT_NAME}
+    name: test
   spec: {}
   status: {}
 {{ if .Values.devEnvironment }}
@@ -25,7 +18,7 @@ objects:
   metadata:
     creationTimestamp: null
     name: admin
-    namespace: ${PROJECT_NAME}
+    namespace: test
   roleRef:
     apiGroup: rbac.authorization.k8s.io
     kind: ClusterRole
@@ -35,9 +28,3 @@ objects:
     kind: User
     name: ${PROJECT_ADMIN_USER}
 {{ end }}
-parameters:
-- name: PROJECT_NAME
-- name: PROJECT_DISPLAYNAME
-- name: PROJECT_DESCRIPTION
-- name: PROJECT_ADMIN_USER
-- name: PROJECT_REQUESTING_USER
