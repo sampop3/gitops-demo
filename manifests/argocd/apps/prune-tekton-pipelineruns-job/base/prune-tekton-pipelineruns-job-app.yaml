@@ -9,7 +9,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-  project: infra-jobs
+  project: default
   source:
     path: manifests/configs/openshift-prune-tekton-pipelinerun-job
     repoURL: https://github.com/sampop3/gitops-demo.git
