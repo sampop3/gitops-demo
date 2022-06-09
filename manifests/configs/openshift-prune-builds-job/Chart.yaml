@@ -1,4 +1,0 @@
-description: Day2 task Scheduled job to Prune Builds
-name: prune-builds
-tags: foundation,cronjob,prune,builds
-version: v0.0.1
