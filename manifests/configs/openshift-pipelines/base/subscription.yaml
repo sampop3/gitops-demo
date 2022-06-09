@@ -12,4 +12,4 @@ spec:
   name: openshift-pipelines-operator-rh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: redhat-openshift-pipelines.v1.5.2
+  startingCSV: redhat-openshift-pipelines.v1.7.0
