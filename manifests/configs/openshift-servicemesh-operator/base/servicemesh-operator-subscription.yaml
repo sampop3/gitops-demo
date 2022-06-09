@@ -8,8 +8,7 @@ metadata:
       argocd.argoproj.io/sync-wave: "15"
 spec:
   channel: stable
-  installPlanApproval: Manual
+  installPlanApproval: Automatic
   name: servicemeshoperator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: servicemeshoperator.v2.1.2.1

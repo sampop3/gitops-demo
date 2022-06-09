@@ -8,8 +8,7 @@ metadata:
       argocd.argoproj.io/sync-wave: "15"
 spec:
   channel: stable
-  installPlanApproval: Manual
+  installPlanApproval: Automatic
   name: kiali-ossm
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: kiali-operator.v1.36.9
